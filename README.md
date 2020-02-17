@@ -1,6 +1,6 @@
 # uwa-channel-model
 
-This repository contains the code to accomopany the following publication:
+This repository contains the code to accompany the following publication:
 
 N. Morozs, W. Gorma, B. Henson, L. Shen, P. D. Mitchell and Y. V. Zakharov, "Channel Modelling for Underwater Acoustic Network Simulation," submitted to IEEE Communications Surveys & Tutorials, Feb 2020.
 
@@ -14,10 +14,10 @@ This code is published under the MIT License (see full license in the 'LICENSE' 
 Required software:
 
 1) MATLAB (tested on R2015a and R2018b)
-2) Bellhop (M. Porter's Acoustics Toolbox: https://oalib-acoustics.org/AcousticsToolbox/)
-   - Requires the latest version available to date (downloaded 23 Jan 2020) 
-   - The installation requires a FORTRAN compiler (e.g. gfortran on Linux-based systems)
-   - Please consult the 'index.htm' file at the Acoustics Toolbox root directory and the 'bellhop-installation-notes.pdf' provided by us for BELLHOP installation instructions
+2) Bellhop (part of Acoustics Toolbox: https://oalib-acoustics.org/AcousticsToolbox/)
+   - The version used in our work (downloaded 17 Feb 2020, last modified 6 Jul 2018) 
+   - The installation requires a FORTRAN compiler (e.g. _gfortran_ on Linux-based systems)
+   - Please consult the _index.htm_ file at the Acoustics Toolbox root directory and the _bellhop-installation-notes.pdf_ provided by us for BELLHOP installation instructions
 
 ********
 ## Contents
@@ -26,7 +26,7 @@ The list of subdirectories:
 
 - __channel_model__: MATLAB files and data referenced in Sections IV and V of the paper. All of the channel modelling code is inside this folder.
 
-- __single_hop_case_study__: the data, results and the plotting script for teh Riverbed Modeler single-hop ALOHA case study (Section VI.A)
+- __single_hop_case_study__: the data, results and the plotting script for the Riverbed Modeler single-hop ALOHA case study (Section VI.A)
 
 - __stdma_case_study__: simulation scripts, channel data and results for the statistical channel modelling and STDMA case study (Section VI.B)
 
