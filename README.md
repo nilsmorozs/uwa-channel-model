@@ -10,7 +10,6 @@ This code is published under the MIT License (see full license in the 'LICENSE' 
 
 ******************************
 ## Prerequisites and installation
-******************************
 
 Required software:
 
@@ -22,19 +21,18 @@ Required software:
 
 ********
 ## Contents
-********
 
-###### The list of subdirectories:
+The list of subdirectories:
 
-- ``channel_model``: MATLAB files and data referenced in Sections IV and V of the paper. All of the channel modelling code is inside this folder.
+- __channel_model__: MATLAB files and data referenced in Sections IV and V of the paper. All of the channel modelling code is inside this folder.
 
-- ``single_hop_case_study``: the data, results and the plotting script for teh Riverbed Modeler single-hop ALOHA case study (Section VI.A)
+- __single_hop_case_study__: the data, results and the plotting script for teh Riverbed Modeler single-hop ALOHA case study (Section VI.A)
 
-- ``stdma_case_study``: simulation scripts, channel data and results for the statistical channel modelling and STDMA case study (Section VI.B)
+- __stdma_case_study__: simulation scripts, channel data and results for the statistical channel modelling and STDMA case study (Section VI.B)
 
 ******************
 
-The descriptions of the MATLAB scripts and functions in the 'channel_model' subdirectory can be accessed by typing ``help <script/function name>`` into the MATLAB console. Their functionality are also described in the paper. Below is a list of some of the key scripts performing various channel modelling tasks described in teh paper. Note, the results may vary slightly compared to those included in the paper, since the random number generator may produce different sea surface/bottom realizations and node positions permutations on different versions of MATLAB.
+The descriptions of the MATLAB scripts and functions in the __channel_model__ subdirectory can be accessed by typing ``help <script/function name>`` into the MATLAB console. Their functionality are also described in the paper. Below is a list of some of the key scripts performing various channel modelling tasks described in teh paper. Note, the results may vary slightly compared to those included in the paper, since the random number generator may produce different sea surface/bottom realizations and node positions permutations on different versions of MATLAB.
 
 - ``single_sim``: this is the best starting point to familiarize yourself with our model. It performs a single ray tracing simulation and produces plots in Fig. 2, 3, 4, 8, 10, 11, 12, depending on the specified type of simulation.
 
