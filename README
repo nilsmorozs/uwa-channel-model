@@ -1,5 +1,3 @@
-# uwa-channel-model
-
 This folder contains the code to accomopany the following publication:
 
 N. Morozs, W. Gorma, B. Henson, L. Shen, P. D. Mitchell and Y. V. Zakharov, "Channel Modelling for Underwater Acoustic Network Simulation," submitted to IEEE Communications Surveys & Tutorials, Feb 2020.
@@ -45,4 +43,3 @@ The descriptions of the MATLAB scripts and functions in the 'channel_model' subd
 'example_stat_channel_model': this script generates a statistical channel model for a specified pair of source-receiver positions described in Subsection V.C. It also produces the graphs from Fig. 19 and 20.
 
 'create_stat_ch_model_linnet': this script generates a statistical channel model for the linear network case study in Subsection VI.B of the paper.
-
