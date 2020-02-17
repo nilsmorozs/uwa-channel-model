@@ -14,7 +14,7 @@ This code is published under the MIT License (see full license in the 'LICENSE' 
 Required software:
 
 1) MATLAB (tested on R2015a and R2018b)
-2) Bellhop (M. Porter's Acoustics Toolbox: http://oalib.hlsresearch.com/AcousticsToolbox/)
+2) Bellhop (M. Porter's Acoustics Toolbox: https://oalib-acoustics.org/AcousticsToolbox/)
    - Requires the latest version available to date (downloaded 23 Jan 2020) 
    - The installation requires a FORTRAN compiler (e.g. gfortran on Linux-based systems)
    - Please consult the 'index.htm' file at the Acoustics Toolbox root directory and the 'bellhop-installation-notes.pdf' provided by us for BELLHOP installation instructions
