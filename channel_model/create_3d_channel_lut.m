@@ -72,9 +72,10 @@ pars.regulargrid = false;
 % File name and the simulation title
 pars.filename = 'simfiles/channel_lut'; % temporary directory for BELLHOP generated files
 
-% Interpolate the SSP to 10m steps to have detailed BELLHOP simulations
+% Interpolate the SSP to have more detailed BELLHOP simulations
+num_ssp_points = 50;
 pars.maxdepth = water_depth;
-pars.depths = 0:10:pars.maxdepth;
+pars.depths = linspace(0, pars.maxdepth, num_ssp_points);
 pars.soundspeeds = interp1(ssp.depths, ssp.speeds, pars.depths);
 
 % Set random number generator seed for reproducible altimetry/bathymetry
@@ -82,7 +83,7 @@ rng(12453);
 
 % Altimetry parameters
 pars.use_altimetry = true; % if false, then flat surface is simulated
-pars.wave_resolution = 20; % sampling point interval for surface waves
+pars.wave_resolution = 10; % sampling point interval for surface waves
 pars.wind_speed = 10; % 10 m/s wind
 
 % Bathymetry parameters
