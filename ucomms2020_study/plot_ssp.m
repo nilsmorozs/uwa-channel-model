@@ -1,13 +1,13 @@
 % Plot the January and July SSP (Fig. X)
 
 % Load and store the SSP data from both files
-max_depth = 50; % maximum depth
+max_depth = 70; % maximum depth
 load('data/north_sea_ssp_jan.mat');
-depths_jan = z(z <= max_depth);
-speeds_jan = c(z <= max_depth);
+depths_jan = z;
+speeds_jan = c;
 load('data/north_sea_ssp_jul.mat');
-depths_jul = z(z <= max_depth);
-speeds_jul = c(z <= max_depth);
+depths_jul = z;
+speeds_jul = c;
 
 % Plot both SSPs
 figure; hold on
@@ -21,4 +21,4 @@ title('');
 legend('January', 'July', 'Location', 'SouthEast')
 legend('boxoff')
 box on;
-axis([-Inf Inf -max_depth 0])
+axis([1476 1504 -max_depth 0])

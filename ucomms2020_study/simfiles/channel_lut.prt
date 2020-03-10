@@ -76,25 +76,25 @@
 
  Number of source   depths =            1
  Source depths (m)
-   45.6057    
+   45.1653    
 
  Number of receiver depths =           50
  Receiver depths (m)
-   45.0272       44.2289       45.3918       46.3956       45.7213    
-   44.7292       44.8264       44.6672       44.9405       42.8745    
-   43.9809       46.0598       44.8611       42.5687       45.2394    
-   47.2735       44.9855       44.5400       45.6291       44.0459    
-   44.8865    
-  ...    45.7376709    
+   44.1957       44.9362       43.7847       44.2801       45.0668    
+   44.8881       43.0690       45.2410       46.6095       45.1602    
+   44.7915       43.3299       44.6847       44.8512       46.9657    
+   46.1485       44.7775       44.5170       43.7694       44.9507    
+   44.8490    
+  ...    46.2561646    
 
  Number of receiver ranges =           50
  Receiver ranges (km)
-   1.99754       1.99814       1.99826       1.99851       1.99859    
-   1.99863       1.99887       1.99887       1.99898       1.99905    
-   1.99913       1.99920       1.99934       1.99941       1.99942    
-   1.99948       1.99953       1.99956       1.99964       1.99968    
-   1.99971    
-  ...    2.00150609    
+   2.99897       2.99898       2.99906       2.99943       2.99974    
+   2.99976       2.99980       2.99980       2.99988       3.00010    
+   3.00012       3.00015       3.00016       3.00018       3.00019    
+   3.00019       3.00020       3.00025       3.00029       3.00040    
+   3.00040    
+  ...    3.00212693    
 
  Arrivals calculation, ASCII  file output
  Geometric gaussian beams in Cartesian coordinates
@@ -116,60 +116,60 @@
  Step length,      deltas =    0.0000000000000000      m
 
  Maximum ray depth, Box%z =    50.000000000000000      m
- Maximum ray range, Box%r =    2021.5210000000000      m
+ Maximum ray range, Box%r =    3032.1479999999997      m
  No beam shift in effect
 
  *********************************
  Using top-altimetry file
  Piecewise linear interpolation
- Number of altimetry points        2020
+ Number of altimetry points        3020
 
   Range (km)  Depth (m)
-   0.00       1.53    
-  0.100E-01   1.57    
-  0.200E-01   1.74    
-  0.300E-01   1.82    
-  0.400E-01   2.03    
-  0.500E-01   2.17    
-  0.600E-01   2.21    
-  0.700E-01   2.33    
-  0.800E-01   2.42    
-  0.900E-01   2.40    
-  0.100       2.44    
-  0.110       2.46    
-  0.120       2.51    
-  0.130       2.55    
-  0.140       2.52    
-  0.150       2.55    
-  0.160       2.60    
-  0.170       2.65    
-  0.180       2.60    
+   0.00       1.72    
+  0.100E-01   1.87    
+  0.200E-01   1.95    
+  0.300E-01   2.08    
+  0.400E-01   2.10    
+  0.500E-01   1.98    
+  0.600E-01   2.00    
+  0.700E-01   1.93    
+  0.800E-01   1.96    
+  0.900E-01   2.00    
+  0.100       2.03    
+  0.110       2.10    
+  0.120       2.26    
+  0.130       2.45    
+  0.140       2.65    
+  0.150       2.84    
+  0.160       2.79    
+  0.170       2.73    
+  0.180       2.70    
  *********************************
  Using bottom-bathymetry file
  Piecewise linear interpolation
- Number of bathymetry points         162
+ Number of bathymetry points         243
 
  Short format (bathymetry only)
   Range (km)  Depth (m)
    0.00       50.0    
-  0.125E-01   50.0    
-  0.250E-01   49.9    
-  0.375E-01   49.8    
-  0.500E-01   49.7    
-  0.625E-01   49.6    
-  0.750E-01   49.5    
-  0.875E-01   49.4    
-  0.100       49.4    
-  0.113       49.4    
-  0.125       49.5    
-  0.138       49.6    
-  0.150       49.7    
-  0.163       49.8    
-  0.175       49.9    
-  0.188       50.0    
+  0.125E-01   49.9    
+  0.250E-01   49.7    
+  0.375E-01   49.5    
+  0.500E-01   49.1    
+  0.625E-01   48.8    
+  0.750E-01   48.5    
+  0.875E-01   48.3    
+  0.100       48.3    
+  0.113       48.3    
+  0.125       48.5    
+  0.138       48.8    
+  0.150       49.1    
+  0.163       49.5    
+  0.175       49.7    
+  0.188       49.9    
   0.200       50.0    
   0.212       50.0    
-  0.225       50.0    
+  0.225       49.9    
 
  Step length,      deltas =    5.0000000000000000      m (automatically selected)
 
@@ -178,8 +178,8 @@
 Tracing beam       1    -90.00
 
  Geometric Gaussian beams                
- halfwidth  =    62.358164086752353     
- epsilonOpt =  (  0.0000000000000000     ,  293189056.10302895     )
+ halfwidth  =    62.358210565788056     
+ epsilonOpt =  (  0.0000000000000000     ,  293189493.16367316     )
  EpsMult    =    1.0000000000000000     
 
 Tracing beam     201    -86.40
@@ -215,22 +215,3 @@ Tracing beam    6001     18.00
 Tracing beam    6201     21.60
 Tracing beam    6401     25.20
 Tracing beam    6601     28.80
-Tracing beam    6801     32.40
-Tracing beam    7001     36.00
-Tracing beam    7201     39.60
-Tracing beam    7401     43.20
-Tracing beam    7601     46.80
-Tracing beam    7801     50.40
-Tracing beam    8001     54.00
-Tracing beam    8201     57.60
-Tracing beam    8401     61.20
-Tracing beam    8601     64.80
-Tracing beam    8801     68.40
-Tracing beam    9001     72.00
-Tracing beam    9201     75.60
-Tracing beam    9401     79.20
-Tracing beam    9601     82.80
-Tracing beam    9801     86.40
-Tracing beam   10001     90.00
-
- CPU Time =        7.50    s

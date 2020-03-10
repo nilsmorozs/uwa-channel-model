@@ -31,7 +31,7 @@ csv_file_prefix = 'data/ch_data-';
 num_sensor_nodes = 10; % 10 sensor nodes in addition to one sink node 
 inter_node_dist = 1e3; % distance between adjacent nodes
 node_depth = 45; % nodes located near the sea bottom
-sea_depth = 50; % maximum sea depth
+sea_depth = 70; % maximum sea depth
 max_hill_height = 2; % "hilly" bathymetry up to 2m
 movement_rad = 2.5; % random node movement within a 5m diameter sphere
 num_rand_pos = 50; % 50 random displacements in both source and receiver positions
@@ -39,13 +39,12 @@ centre_freq = 24e3; % centre frequency [Hz]
 bandwidth = 7.2e3; % bandwidth [Hz]
 
 % Load and store the SSP data from both files
-max_depth = 50; % maximum depth
 load('data/north_sea_ssp_jan.mat');
-jan_ssp.depths = z(z <= sea_depth);
-jan_ssp.speeds = c(z <= sea_depth);
+jan_ssp.depths = z;
+jan_ssp.speeds = c;
 load('data/north_sea_ssp_jul.mat');
-jul_ssp.depths = z(z <= sea_depth);
-jul_ssp.speeds = c(z <= sea_depth);
+jul_ssp.depths = z;
+jul_ssp.speeds = c;
 
 %% Run all BELLHOP simulations and save results in a CSV file
 
@@ -82,6 +81,6 @@ for n = 1:num_sensor_nodes
     % Run BELLHOP using the July SSP
     disp('  July SSP...')
     csv_file = [csv_file_prefix, 'jul-', num2str(n), 'hop.csv'];
-    create_3d_channel_lut(src_pos, rx_pos, csv_file, false, jan_ssp, sea_depth,...
+    create_3d_channel_lut(src_pos, rx_pos, csv_file, false, jul_ssp, sea_depth,...
                                     centre_freq, bandwidth, max_hill_height);
 end
