@@ -30,20 +30,21 @@ csv_file_prefix = 'data/ch_data-';
 % Set up the system parameters
 num_sensor_nodes = 10; % 10 sensor nodes in addition to one sink node 
 inter_node_dist = 1e3; % distance between adjacent nodes
-node_depth = 45; % nodes located near the sea bottom
-sea_depth = 50; % maximum sea depth
+node_depth = 65; % nodes located near the sea bottom
+sea_depth = 70; % maximum sea depth
 max_hill_height = 2; % "hilly" bathymetry up to 2m
 movement_rad = 2.5; % random node movement within a 5m diameter sphere
 num_rand_pos = 50; % 50 random displacements in both source and receiver positions
+centre_freq = 24e3; % centre frequency [Hz]
+bandwidth = 7.2e3; % bandwidth [Hz]
 
 % Load and store the SSP data from both files
-max_depth = 50; % maximum depth
 load('data/north_sea_ssp_jan.mat');
-depths_jan = z(z <= sea_depth);
-speeds_jan = c(z <= sea_depth);
+jan_ssp.depths = z;
+jan_ssp.speeds = c;
 load('data/north_sea_ssp_jul.mat');
-depths_jul = z(z <= sea_depth);
-speeds_jul = c(z <= sea_depth);
+jul_ssp.depths = z;
+jul_ssp.speeds = c;
 
 %% Run all BELLHOP simulations and save results in a CSV file
 
@@ -70,9 +71,16 @@ for n = 1:num_sensor_nodes
     src_pos = repmat(avg_src_pos, [num_rand_pos, 1]) + [x, y, z];
     [x, y, z] = sph2cart(rand_azim(:, 2), rand_elev(:, 2), rand_rad(:, 2)); % transform to Cartesian
     rx_pos = repmat(avg_rx_pos, [num_rand_pos, 1]) + [x, y, z];
-    
-    
-    
-    % Run BELLHOP and generate the new data
-    create_3d_channel_lut(src_pos, rx_pos, csv_file);
+
+    % Run BELLHOP using the January SSP
+    disp('  January SSP...')
+    csv_file = [csv_file_prefix, 'jan-', num2str(n), 'hop.csv'];
+    create_3d_channel_lut(src_pos, rx_pos, csv_file, false, jan_ssp, sea_depth,...
+                                    centre_freq, bandwidth, max_hill_height);
+                                
+    % Run BELLHOP using the July SSP
+    disp('  July SSP...')
+    csv_file = [csv_file_prefix, 'jul-', num2str(n), 'hop.csv'];
+    create_3d_channel_lut(src_pos, rx_pos, csv_file, false, jul_ssp, sea_depth,...
+                                    centre_freq, bandwidth, max_hill_height);
 end

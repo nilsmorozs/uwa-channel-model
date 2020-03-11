@@ -57,7 +57,7 @@ figure; hold on;
 for n = 1:numel(csv_files)
     h = cdfplot(delay_spreads(:, n));
     set(h, 'linewidth', 1.5, 'color', line_styles{n}(1), 'linestyle', line_styles{n}(2:end));
-    xlabel('Delay spread, sec'), ylabel('CDF');
+    xlabel('Channel delay spread, sec'), ylabel('CDF');
     title('')
     box on; grid off;
     legend(legends); legend('boxon');

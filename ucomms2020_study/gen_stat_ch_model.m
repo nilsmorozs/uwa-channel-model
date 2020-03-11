@@ -30,7 +30,7 @@ csv_file_prefix = 'data/ch_data-';
 % Set up the system parameters
 num_sensor_nodes = 10; % 10 sensor nodes in addition to one sink node 
 inter_node_dist = 1e3; % distance between adjacent nodes
-node_depth = 45; % nodes located near the sea bottom
+node_depth = 65; % nodes located near the sea bottom
 sea_depth = 70; % maximum sea depth
 max_hill_height = 2; % "hilly" bathymetry up to 2m
 movement_rad = 2.5; % random node movement within a 5m diameter sphere
