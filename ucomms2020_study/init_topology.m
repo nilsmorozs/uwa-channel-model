@@ -1,10 +1,12 @@
-function [intf_map, prop_delays, delay_spreads] = init_topology(num_nodes, tx_power, intf_snr, rand_seed)
+function [intf_map, prop_delays, delay_spreads] = init_topology(num_nodes, tx_power, ssp_month,...
+                                                                intf_snr, rand_seed)
 %INIT_topology function fetches random channel samples from CSV files and 
 % generates the interference map and propagation delay matrices
 %
 %INPUTS:
 % NUM_NODES - number of nodes
 % TX_POWER - source power [dB re uPa^2 m^2]
+% SSP_MONTH - 'jan' or 'jul'  in this study
 % INTF_SNR - SNR threshold for a packet to be considered interference [dB]
 % RAND_SEED - random seed
 %
@@ -33,12 +35,6 @@ function [intf_map, prop_delays, delay_spreads] = init_topology(num_nodes, tx_po
 % This work was supported by the UK Engineering and Physical Sciences Research Council (EPSRC) 
 % through the USMART Project under Grant EP/P017975/1.
 
-% Default input parameter values
-if nargin < 1; num_nodes = 11; end
-if nargin < 2; tx_power = 160; end
-if nargin < 3; intf_snr = 0; end
-if nargin < 4; rand_seed = 1; end
-
 % Set the random seed
 rng(17401*rand_seed);
 
@@ -62,7 +58,7 @@ for n = 1:num_nodes
         num_hops = abs(n-k);
         
         if num_hops <= 7
-            csv_file = ['data/ch_data-jan-' num2str(num_hops), 'hop.csv'];
+            csv_file = ['data/ch_data-' ssp_month '-' num2str(num_hops), 'hop.csv'];
             csv_data = csvread(csv_file, 1, 2);
             num_ch_samples = size(csv_data, 1);
             rand_row = csv_data(randi(num_ch_samples), :);

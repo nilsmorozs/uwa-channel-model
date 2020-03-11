@@ -21,30 +21,42 @@
 % through the USMART Project under Grant EP/P017975/1.
 
 % Set the fixed system parameters
-num_nodes = 11;
-tx_power = 165; % around 15 dB SNR for the intended transmissions
+num_nodes = 8;
 intf_snr = 0; % 0 dB threshold to be detectable as an interferer
-data_pkt_dur = 0.5; % 500 ms long packets
+data_pkt_dur = 0.3; % 300 ms long packets
 
-% Create many ralizations of the linear network and parse STDMA parameters about them
-num_realizations = 1000;
-slot_lengths = NaN(1, num_realizations);
-frame_lengths = NaN(1, num_realizations);
-intf_hop_dist = NaN(1, num_realizations);
-for r = 1:num_realizations
-    
-    % Create a network topology
-    [intf_map, delays, spreads] = init_topology(num_nodes, tx_power, intf_snr, r);
-    
-    % Derive an STDMA schedule for it
-    [stdma_sched, slot_length] = derive_stdma_schedule(intf_map, delays, spreads, data_pkt_dur);
-    
-    % Store the metrics about this STDMA schedule
-    slot_lengths(r) = slot_length;
-    frame_lengths(r) = size(stdma_sched, 2);
-    
+% Specify the transmit power values and SSPs to be simulated
+txp_vals = [160, 165, 170];
+ssp_months = {'jan', 'jul'};
+
+% Loop through all transmit power and SSP combinations
+for tx_power = txp_vals
+    disp(['Simulating Tx power: ' num2str(tx_power) ' dB...'])
+    for ssp = ssp_months
+        disp(['  SSP: ' ssp{1}])
+
+        % Create many ralizations of the linear network and parse STDMA parameters about them
+        num_realizations = 1000;
+        slot_lengths = NaN(1, num_realizations);
+        frame_lengths = NaN(1, num_realizations);
+        intf_hop_dist = NaN(1, num_realizations);
+        for r = 1:num_realizations
+
+            % Create a network topology
+            [intf_map, delays, spreads] = init_topology(num_nodes, tx_power, ssp{1}, intf_snr, r);
+
+            % Derive an STDMA schedule for it
+            [stdma_sched, slot_length] = derive_stdma_schedule(intf_map, delays, spreads, data_pkt_dur);
+
+            % Store the metrics about this STDMA schedule
+            slot_lengths(r) = slot_length;
+            frame_lengths(r) = size(stdma_sched, 2);
+
+        end
+        
+        % Save the results to file
+        save(['data/res-' num2str(tx_power) 'dB-' ssp{1} '.mat']);
+        
+    end
 end
-
-% Save the results to file
-save(['data/res-' num2str(tx_power) 'dB.mat']);
 
