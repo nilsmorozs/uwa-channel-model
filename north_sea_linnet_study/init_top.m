@@ -1,6 +1,6 @@
-function [intf_map, prop_delays, delay_spreads] = init_topology(num_nodes, tx_power, ssp_month,...
+function [intf_map, prop_delays, delay_spreads] = init_top(num_nodes, tx_power, ssp_month,...
                                                                 intf_snr, rand_seed)
-%INIT_topology function fetches random channel samples from CSV files and 
+%INIT_TOP function fetches random channel samples from CSV files and 
 % generates the interference map and propagation delay matrices
 %
 %INPUTS:

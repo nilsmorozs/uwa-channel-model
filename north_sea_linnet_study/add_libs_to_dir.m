@@ -3,4 +3,4 @@
 % Acoustics Toolbox
 addpath(genpath('~/inst/at2020'));
 % The channel modelling code
-addpath(genpath('../channel_model'));
+addpath(genpath('../../../../uwa-channel-model/channel_model'));

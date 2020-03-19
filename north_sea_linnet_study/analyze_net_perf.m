@@ -21,40 +21,36 @@
 % through the USMART Project under Grant EP/P017975/1.
 
 %% Load the results
-txp_vals = [160, 165, 170];
-ssp_months = {'jan', 'jul'};
-slot_length_data = cell(numel(txp_vals), numel(ssp_months));
-frame_length_data = cell(numel(txp_vals), numel(ssp_months));
-throughput_data = cell(numel(txp_vals), numel(ssp_months));
-for m = 1:numel(txp_vals)
-    for k = 1:numel(ssp_months)
-        load(['data/res-' num2str(txp_vals(m)) 'dB-' ssp_months{k} '.mat']);
-        % Store slot and frame lengths
-        slot_length_data{m, k} = slot_lengths;
-        frame_length_data{m, k} = frame_lengths;
-        % Calculate network throughput
-        num_packets = num_nodes*(num_nodes-1)/2;
-        throughput_data{m, k} = num_packets ./ (slot_lengths .* frame_lengths);
-    end
+txp_ssp_combs = {{155, 'jul'}, {160, 'jan'}, {160, 'jul'}, {165, 'jan'}, {165, 'jul'}, {170, 'jan'}};
+slot_length_data = cell(numel(txp_ssp_combs));
+frame_length_data = cell(numel(txp_ssp_combs));
+throughput_data = cell(numel(txp_ssp_combs));
+for k = 1:numel(txp_ssp_combs)
+    
+    % Load the data
+    load(['data/res-' num2str(txp_ssp_combs{k}{1}) 'dB-' txp_ssp_combs{k}{2} '.mat'],...
+                  'slot_lengths', 'frame_lengths', 'num_nodes');
+    % Store slot and frame lengths
+    slot_length_data{k} = slot_lengths;
+    frame_length_data{k} = frame_lengths;
+    % Calculate network throughput
+    num_packets = num_nodes*(num_nodes-1)/2;
+    throughput_data{k} = num_packets ./ (slot_lengths .* frame_lengths);
+
 end
 
 %% Plot the results
 
 % Set up the legend and the line types
-line_styles = {'k-', 'k--', 'b-', 'b--', 'r-', 'r--'};
-legends = {'160 dB, Jan', '160 dB, Jul', ...
-           '165 dB, Jan', '165 dB, Jul', ...
-           '170 dB, Jan', '170 dB, Jul'};
+line_styles = {'k--', 'k-', 'r--', 'r-', 'b--', 'b-'};
+legends = {'Jul: 155 dB', 'Jan: 160 dB', 'Jul: 160 dB', ...
+           'Jan: 165 dB', 'Jul: 165 dB', 'Jan: 170 dB'};
 
 % Plot the CDFs of the slot lengths
 figure; hold on;
-index = 1;
-for m = 1:numel(txp_vals)
-    for k = 1:numel(ssp_months)
-        h = cdfplot(slot_length_data{m, k});
-        set(h, 'linewidth', 1.5, 'color', line_styles{index}(1), 'linestyle', line_styles{index}(2:end));
-        index = index + 1;
-    end
+for k = 1:numel(txp_ssp_combs)
+    h = cdfplot(slot_length_data{k});
+    set(h, 'linewidth', 1.5, 'color', line_styles{k}(1), 'linestyle', line_styles{k}(2:end));
 end
 % Format the axis and legend
 title('');
@@ -64,35 +60,27 @@ box on; grid on;
 leg = legend(legends, 'Location', 'SouthEast');
 title(leg, 'Source level, SSP');
 legend('boxon');
-
+% 
 % Plot the CDFs of the frame lengths
 figure; hold on;
-index = 1;
-for m = 1:numel(txp_vals)
-    for k = 1:numel(ssp_months)
-        h = cdfplot(frame_length_data{m, k});
-        set(h, 'linewidth', 1.5, 'color', line_styles{index}(1), 'linestyle', line_styles{index}(2:end));
-        index = index + 1;
-    end
+for k = 1:numel(txp_ssp_combs)
+    h = cdfplot(frame_length_data{k});
+    set(h, 'linewidth', 1.5, 'color', line_styles{k}(1), 'linestyle', line_styles{k}(2:end));
 end
 % Format the axis and legend
 title('');
 xlabel('Number of slots per frame'); ylabel('CDF');
-box on; grid on;
+box on; grid off;
 % axis([-Inf Inf 0 1])
 leg = legend(legends, 'Location', 'SouthEast');
-title(leg, 'Source level, SSP');
-legend('boxoff');
+title(leg, 'SSP, source level');
+legend('boxon');
 
 % Plot the CDFs of the frame duration
 figure; hold on;
-index = 1;
-for m = 1:numel(txp_vals)
-    for k = 1:numel(ssp_months)
-        h = cdfplot(slot_length_data{m, k}.*frame_length_data{m, k});
-        set(h, 'linewidth', 1.5, 'color', line_styles{index}(1), 'linestyle', line_styles{index}(2:end));
-        index = index + 1;
-    end
+for k = 1:numel(txp_ssp_combs)
+    h = cdfplot(slot_length_data{k}.*frame_length_data{k});
+    set(h, 'linewidth', 1.5, 'color', line_styles{k}(1), 'linestyle', line_styles{k}(2:end));
 end
 % Format the axis and legend
 title('');
@@ -105,19 +93,15 @@ legend('boxon');
 
 % Plot the CDFs of the throughput
 figure; hold on;
-index = 1;
-for m = 1:numel(txp_vals)
-    for k = 1:numel(ssp_months)
-        h = cdfplot(throughput_data{m, k});
-        set(h, 'linewidth', 1.5, 'color', line_styles{index}(1), 'linestyle', line_styles{index}(2:end));
-        index = index + 1;
-    end
+for k = 1:numel(txp_ssp_combs)
+    h = cdfplot(throughput_data{k});
+    set(h, 'linewidth', 1.5, 'color', line_styles{k}(1), 'linestyle', line_styles{k}(2:end));
 end
 % Format the axis and legend
 title('');
 xlabel('Throughput, packets/sec'); ylabel('CDF');
-box on; grid on;
+box on; grid off;
 % axis([-Inf Inf 0 1])
 leg = legend(legends, 'Location', 'SouthEast');
-title(leg, 'Source level, SSP');
+title(leg, 'SSP, source level');
 legend('boxon');

@@ -26,8 +26,8 @@ intf_snr = 0; % 0 dB threshold to be detectable as an interferer
 data_pkt_dur = 0.3; % 300 ms long packets
 
 % Specify the transmit power values and SSPs to be simulated
-txp_vals = [160, 165, 170];
-ssp_months = {'jan', 'jul'};
+txp_vals = [155];
+ssp_months = {'jul'};
 
 % Loop through all transmit power and SSP combinations
 for tx_power = txp_vals
@@ -43,7 +43,7 @@ for tx_power = txp_vals
         for r = 1:num_realizations
 
             % Create a network topology
-            [intf_map, delays, spreads] = init_topology(num_nodes, tx_power, ssp{1}, intf_snr, r);
+            [intf_map, delays, spreads] = init_top(num_nodes, tx_power, ssp{1}, intf_snr, r);
 
             % Derive an STDMA schedule for it
             [stdma_sched, slot_length] = derive_stdma_schedule(intf_map, delays, spreads, data_pkt_dur);

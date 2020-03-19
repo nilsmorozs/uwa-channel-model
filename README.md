@@ -2,7 +2,7 @@
 
 This repository contains the code to accompany the following publication:
 
-N. Morozs, W. Gorma, B. Henson, L. Shen, P. D. Mitchell and Y. V. Zakharov, "Channel Modelling for Underwater Acoustic Network Simulation," submitted to IEEE Communications Surveys & Tutorials, Feb 2020.
+N. Morozs, W. Gorma, B. Henson, L. Shen, P. D. Mitchell and Y. V. Zakharov, "Channel Modelling for Underwater Acoustic Network Simulation," in TechRxiv (submitted to IEEE Communications Surveys & Tutorials, Feb 2020).
 
 This work was supported by the UK Engineering and Physical Sciences Research Council (EPSRC) through the USMART Project under Grant EP/P017975/1.
 
@@ -24,11 +24,13 @@ Required software:
 
 The list of subdirectories:
 
-- __channel_model__: MATLAB files and data referenced in Sections IV and V of the paper. All of the channel modelling code is inside this folder.
+- __channel_model__: MATLAB files and data referenced in Sections IV and V of the tutorial paper. All of the channel modelling code is inside this folder.
 
-- __single_hop_case_study__: the data, results and the plotting script for the Riverbed Modeler single-hop ALOHA case study (Section VI.A)
+- __riverbed_case_study__: the data, results and the plotting script for the Riverbed Modeler single-hop ALOHA case study (Section VI.A)
 
 - __stdma_case_study__: simulation scripts, channel data and results for the statistical channel modelling and STDMA case study (Section VI.B)
+
+- __north_sea_linnet_study__: channel modelling, simulation and plotting scripts for the North Sea simulation study (not part of the tutorial: linear network, STDMA, January vs July)
 
 
 The descriptions of the MATLAB scripts and functions in the __channel_model__ subdirectory can be accessed by typing ``help <script/function name>`` into the MATLAB console. Their functionality are also described in the paper. Below is a list of some of the key scripts performing various channel modelling tasks described in the paper. Note, the results may vary slightly compared to those included in the paper, since the random number generator may produce different sea surface/bottom realizations and node position permutations on different versions of MATLAB.
