@@ -30,10 +30,10 @@ function [ ] = create_sea_surface_file(pars)
 % Create an output ATI file
 filename = [pars.filename '.ati'];
 
-% Use one sampling point per metre (find the closest even number of DFT points that goes beyond)
-resolution  = pars.wave_resolution; % 1m spatial resolution
+% Use the specified sampling frequency (find the closest even number of DFT points that goes beyond)
+resolution  = pars.wave_resolution; % spatial resolution
 L = ceil((pars.maxrange+1) / 2 / resolution) * 2 * resolution;
-N = L; % 1 sampling point per metre
+N = ceil(L/resolution); % number of sampling points per metre
 fund_freq = 2*pi/L; % fundamental angular spatial frequency [rad/m]
 
 %%% Create a Pierson-Moskowitz variance spectrum function
