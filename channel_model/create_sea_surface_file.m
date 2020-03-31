@@ -32,9 +32,9 @@ filename = [pars.filename '.ati'];
 
 % Use the specified sampling frequency (find the closest even number of DFT points that goes beyond)
 resolution  = pars.wave_resolution; % spatial resolution
-L = ceil((pars.maxrange+1) / 2 / resolution) * 2 * resolution;
-N = ceil(L/resolution); % number of sampling points per metre
+L = ceil(pars.maxrange); % maximum range [m]
 fund_freq = 2*pi/L; % fundamental angular spatial frequency [rad/m]
+N = ceil(L/resolution/2) * 2; % number of DFT points (forced to be even)
 
 %%% Create a Pierson-Moskowitz variance spectrum function
 % Create a function handle with angular spatial frequency as the input (only positive values are allowed)
