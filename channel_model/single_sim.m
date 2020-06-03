@@ -56,7 +56,7 @@ rng(12453);
 
 % Altimetry parameters
 pars.use_altimetry = false; % if false, then flat surface is simulated
-pars.wave_resolution = 5; % 5 m sampling points for waves
+pars.wave_resolution = 10; % 10 m sampling points for waves
 pars.wind_speed = 10; % 10 m/s wind
 if pars.use_altimetry
     create_sea_surface_file(pars);

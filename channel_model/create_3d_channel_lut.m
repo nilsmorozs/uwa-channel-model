@@ -83,7 +83,7 @@ rng(12453);
 
 % Altimetry parameters
 pars.use_altimetry = true; % if false, then flat surface is simulated
-pars.wave_resolution = 10; % sampling point interval for surface waves
+pars.wave_resolution = 10; % sampling point interval for surface waves [m]
 pars.wind_speed = 10; % 10 m/s wind
 
 % Bathymetry parameters

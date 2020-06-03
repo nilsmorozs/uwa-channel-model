@@ -22,11 +22,11 @@
 
 % Set the fixed system parameters
 num_nodes = 11;
-tx_power = 160; % around 10 dB SNR for the intended transmissions
+tx_power = 170; % around 10 dB SNR for the intended transmissions
 intf_snr = 0; % 0 dB threshold to be detectable as an interferer
 data_pkt_dur = 0.5; % 500 ms long packets
 
-% Create many ralizations of the linear network and parse STDMA parameters about them
+% Create many eralizations of the linear network and parse STDMA parameters about them
 num_realizations = 1000;
 slot_lengths = NaN(1, num_realizations);
 frame_lengths = NaN(1, num_realizations);
@@ -46,5 +46,5 @@ for r = 1:num_realizations
 end
 
 % Save the results to file
-save('data/res.mat')
+save(['data/res-' num2str(tx_power) 'dB.mat']);
 

@@ -139,6 +139,6 @@ caxis([min_rxp max_rxp]);
 % plot(0, -source_depth, 'go', 'linewidth', 2);
 axis([-Inf Inf -Inf Inf]);
 xlabel('Range, m'); ylabel('Depth, m');
-c.Label.String = 'P_{Rx}, dB re 1{\mu}Pa @ 1m';
+c.Label.String = 'Rx Power, dB re 1{\mu}Pa @ 1m';
 c.Label.FontSize = 11;
 box on; grid on;
