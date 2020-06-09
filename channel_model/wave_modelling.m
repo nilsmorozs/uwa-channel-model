@@ -1,5 +1,5 @@
 % This script was used to generate random surface waves based on the Pierson-Moskowitz spectrum
-% It plots a random wave realization and the PSD such as those whown in Fig. 6 and 7
+% It plots a random wave realization and the PSD such as those whown in Fig. 5 and 6
 
 % Copyright 2020 Nils Morozs, University of York (nils.morozs@york.ac.uk)
 %

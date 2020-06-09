@@ -102,6 +102,8 @@ if fit_pdf_to_lin_data
         mu = -20.5; sigma = 0.38; %% Mid-column to mid-column case
     elseif strcmp(csv_file(end-10:end-4), 'bed2bed')
         mu = -21.1; sigma = 0.6; %% Sea bed to sea bed case
+    else
+        fit_pdf_to_lin_data = false; % do not fit a distribution by default
     end
     
     pdf_fit_lin = pdf('Lognormal', pdf_sample_points, mu, sigma);
