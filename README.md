@@ -2,7 +2,7 @@
 
 This repository contains the code to accompany the following publication:
 
-N. Morozs, W. Gorma, B. Henson, L. Shen, P. D. Mitchell and Y. V. Zakharov, "Channel Modelling for Underwater Acoustic Network Simulation," in TechRxiv (submitted to IEEE Communications Surveys & Tutorials, Feb 2020).
+N. Morozs, W. Gorma, B. Henson, L. Shen, P. D. Mitchell and Y. V. Zakharov, "Channel Modelling for Underwater Acoustic Network Simulation," in TechRxiv (submitted to IEEE Access, Jun 2020).
 
 This work was supported by the UK Engineering and Physical Sciences Research Council (EPSRC) through the USMART Project under Grant EP/P017975/1.
 
