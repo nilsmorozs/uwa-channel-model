@@ -80,10 +80,10 @@
 
  __________________________________________________________________________
 
- Number of Receiver depths, Rz =           51
+ Number of Receiver depths, Rz =          201
  Receiver depths, Rz (m)
-   0.00000       10.0000       20.0000       30.0000       40.0000    
-   50.0000       60.0000       70.0000       80.0000       90.0000    
+   0.00000       2.50000       5.00000       7.50000       10.0000    
+   12.5000       15.0000       17.5000       20.0000       22.5000    
           ... 
    500.000    
 
@@ -98,18 +98,18 @@
    5.00000    
 
 
- Ray trace run
- Geometric hat beams in Cartesian coordinates
+ Incoherent TL calculation
+ Geometric gaussian beams in Cartesian coordinates
  Point source (cylindrical coordinates)
  Rectilinear receiver grid: Receivers at ( Rr( ir ), Rz( ir ) ) )
  __________________________________________________________________________
 
- Number of beams in elevation   =           21
+ Number of beams in elevation   =        10001
  Beam take-off angles (degrees)
-  -15.0000      -13.5000      -12.0000      -10.5000      -9.00000    
-  -7.50000      -6.00000      -4.50000      -3.00000      -1.50000    
+  -90.0000      -89.9820      -89.9640      -89.9460      -89.9280    
+  -89.9100      -89.8920      -89.8740      -89.8560      -89.8380    
           ... 
-   15.0000    
+   90.0000    
 
  __________________________________________________________________________
 
@@ -123,26 +123,62 @@
 
  Step length,       deltas =   50.00     m (automatically selected)
 
-Tracing beam       1    -15.00
-Tracing beam       2    -13.50
-Tracing beam       3    -12.00
-Tracing beam       4    -10.50
-Tracing beam       5     -9.00
-Tracing beam       6     -7.50
-Tracing beam       7     -6.00
-Tracing beam       8     -4.50
-Tracing beam       9     -3.00
-Tracing beam      10     -1.50
-Tracing beam      11      0.00
-Tracing beam      12      1.50
-Tracing beam      13      3.00
-Tracing beam      14      4.50
-Tracing beam      15      6.00
-Tracing beam      16      7.50
-Tracing beam      17      9.00
-Tracing beam      18     10.50
-Tracing beam      19     12.00
-Tracing beam      20     13.50
-Tracing beam      21     15.00
+Tracing beam       1    -90.00
 
- CPU Time =       0.102E-01s
+ Geometric Gaussian beams                
+ halfwidth  =    63.019243195942764     
+ epsilonOpt =                (0.0000000000000000,299438391.48216504)
+ EpsMult    =    1.0000000000000000     
+
+Tracing beam     201    -86.40
+Tracing beam     401    -82.80
+Tracing beam     601    -79.20
+Tracing beam     801    -75.60
+Tracing beam    1001    -72.00
+Tracing beam    1201    -68.40
+Tracing beam    1401    -64.80
+Tracing beam    1601    -61.20
+Tracing beam    1801    -57.60
+Tracing beam    2001    -54.00
+Tracing beam    2201    -50.40
+Tracing beam    2401    -46.80
+Tracing beam    2601    -43.20
+Tracing beam    2801    -39.60
+Tracing beam    3001    -36.00
+Tracing beam    3201    -32.40
+Tracing beam    3401    -28.80
+Tracing beam    3601    -25.20
+Tracing beam    3801    -21.60
+Tracing beam    4001    -18.00
+Tracing beam    4201    -14.40
+Tracing beam    4401    -10.80
+Tracing beam    4601     -7.20
+Tracing beam    4801     -3.60
+Tracing beam    5001     -0.00
+Tracing beam    5201      3.60
+Tracing beam    5401      7.20
+Tracing beam    5601     10.80
+Tracing beam    5801     14.40
+Tracing beam    6001     18.00
+Tracing beam    6201     21.60
+Tracing beam    6401     25.20
+Tracing beam    6601     28.80
+Tracing beam    6801     32.40
+Tracing beam    7001     36.00
+Tracing beam    7201     39.60
+Tracing beam    7401     43.20
+Tracing beam    7601     46.80
+Tracing beam    7801     50.40
+Tracing beam    8001     54.00
+Tracing beam    8201     57.60
+Tracing beam    8401     61.20
+Tracing beam    8601     64.80
+Tracing beam    8801     68.40
+Tracing beam    9001     72.00
+Tracing beam    9201     75.60
+Tracing beam    9401     79.20
+Tracing beam    9601     82.80
+Tracing beam    9801     86.40
+Tracing beam   10001     90.00
+
+ CPU Time =        1.06    s

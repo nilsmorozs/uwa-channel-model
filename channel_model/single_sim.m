@@ -35,7 +35,7 @@ pars.title = '2D Intro, North Atlantic SSP'; % (this will appear on the plots)
 %  'eray' - Eigenray tracing 
 %  'loss' - 2D propagation loss calculation
 %  'arr' - arrivals simulation (outputs attenuation/delay/phase of received echoes)
-pars.simtype = 'ray';
+pars.simtype = 'loss';
 
 % Carrier frequency [Hz]
 pars.freq = 24e3;

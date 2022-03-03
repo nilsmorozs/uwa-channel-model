@@ -64,7 +64,7 @@ if pars.use_bathymetry
 else
     fprintf(fid, '''A '' 0.0 \t\t\t\t\t! Bottom is an Acousto-Elastic halfspace, flat bathymetry\n');
 end
-fprintf(fid, '%f 1600.0 0.0 1.0 /\t! Bottom has 1600 m/s sound speed and unit density\n', pars.depths(end));
+fprintf(fid, '%f %f 0.0 %f /\t! Bottom depth, sound speed and density\n', pars.depths(end), pars.bsp, pars.bdensity);
 
 % Write two lines describing locations of the acoustic sources
 fprintf(fid, '%d \t\t\t\t\t\t\t! Number of sources\n', numel(pars.sourcedepths));

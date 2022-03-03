@@ -99,6 +99,10 @@ pars.regulargrid = true;
 pars.use_altimetry = false;
 pars.use_bathymetry = false;
 
+% Seabed parameters (default - sand silt)
+pars.bsp = 1600;
+pars.bdensity = 1;
+
 % Transmission loss parameters
 pars.thorpabsorb = true; % Use Thorp absorption? (only used by 'loss' simulation type)
 pars.coherentloss = false; % coherent/incoherent transmission loss (only used by 'loss' simulation type)
