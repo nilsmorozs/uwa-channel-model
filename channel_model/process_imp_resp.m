@@ -1,4 +1,4 @@
-function [ch_gain, ch_delay, delay_spread] = process_imp_resp(imp_resp, centre_freq, bandwidth, mean_sp, coherent_multipath)
+function [ch_gain, ch_delay, delay_spread, reverb_ch_gain] = process_imp_resp(imp_resp, centre_freq, bandwidth, mean_sp, coherent_multipath, signal_vs_reverb_time)
 %PROCESS_IMP_RESP returns the overall gain, delay and delay spread of a wideband channel described by its impulse response
 %
 %INPUTS:
@@ -7,6 +7,8 @@ function [ch_gain, ch_delay, delay_spread] = process_imp_resp(imp_resp, centre_f
 % BANDWIDTH - bandwidth [Hz]
 % MEAN_SP - mean sound speed [m/s], needed for calculating the absorption loss
 % COHERENT_MULTIPATH - flag indicating whether echoes should be added coherently or ignoring the phase
+% SIGNAL_VS_REVERB_TIME - length of time window (from first received path)
+%                         during which useful signal is received (any paths arriving afterwards is reverb)
 %
 %OUTPUTS:
 % CH_GAIN - channel gain [dB]
@@ -37,12 +39,16 @@ function [ch_gain, ch_delay, delay_spread] = process_imp_resp(imp_resp, centre_f
 if nargin < 5
     coherent_multipath = true;
 end
+if nargin < 6
+    signal_vs_reverb_time = Inf; % no reverb, for back compatibility [this is a new feature]
+end
 
 % If there are no echoes, return a channel with infinitely high loss
 if imp_resp.num_echoes < 1
     ch_gain = -Inf;
     ch_delay = 0;
     delay_spread = 0;
+    reverb_ch_gain = -Inf;
     return;
 end
 
@@ -69,21 +75,36 @@ for echo = 1:imp_resp.num_echoes
     abs_loss(:, echo) = 10.^( abs_coeff_dB ./10 ) .^ dist(echo);
 end
 
-% Calculate the complex channel coefficient at every frequency sampling point
+% Indices of echoes contributing to the useful signal
+sig = imp_resp.delay <= (min(imp_resp.delay) + signal_vs_reverb_time);
+
+% Calculate the complex channel coefficient at every frequency sampling
+% point (for both signal and reverb parts)
 if coherent_multipath
+   
     % If multipath is added coherently, use full amplitude and phase information to add echoes
-    rx_echoes = repmat(imp_resp.ampl, numel(freq_points), 1) .* exp(1j.*phases) ./ sqrt(abs_loss);
+    rx_echoes = repmat(imp_resp.ampl(sig), numel(freq_points), 1) .* exp(1j.*phases(sig)) ./ sqrt(abs_loss(sig));
     ch_coeff = sum(rx_echoes, 2);
+    reverb_echoes = repmat(imp_resp.ampl(~sig), numel(freq_points), 1) .* exp(1j.*phases(~sig)) ./ sqrt(abs_loss(~sig));
+    reverb_ch_coeff = sum(reverb_echoes, 2);
 else
     % Otherwise, add echoes using the power law, discarding the phase information
-    rx_echo_powers = repmat(abs(imp_resp.ampl).^2, numel(freq_points), 1) ./ abs_loss;
+    rx_echo_powers = repmat(abs(imp_resp.ampl(sig)).^2, numel(freq_points), 1) ./ abs_loss(sig);
     ch_coeff = sqrt(sum(rx_echo_powers, 2));
+    reverb_echo_powers = repmat(abs(imp_resp.ampl(~sig)).^2, numel(freq_points), 1) ./ abs_loss(~sig);
+    reverb_ch_coeff = sqrt(sum(reverb_echo_powers, 2));
 end
 
 % Calculate the linear power gain by integrating across the bandwidth
 lin_gain = trapz(freq_points, abs(ch_coeff).^2) / bandwidth;
+if any(~sig)
+    reverb_lin_gain = trapz(freq_points, abs(reverb_ch_coeff).^2) / bandwidth;
+else
+    reverb_lin_gain = 0;
+end
 
 % Return the channel gain in dB, delay of the first echo arrival, and delay spread
 ch_gain = 10*log10(lin_gain);
+reverb_ch_gain = 10*log10(reverb_lin_gain);
 ch_delay = min(imp_resp.delay);
 delay_spread = max(imp_resp.delay) - min(imp_resp.delay);

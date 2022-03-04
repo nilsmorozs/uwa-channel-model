@@ -29,21 +29,21 @@ pars = default_sim_pars;
 
 % 200m depth, 600m range, flat SSP, hard granite bottom
 pars.maxdepth = 300;
-pars.maxrange = 1500;
+pars.maxrange = 700;
 pars.depths = 0:pars.maxdepth;
 pars.soundspeeds = 1500.0 .* ones(1, numel(pars.depths));
 pars.bsp = 4000; % 4000 m/s speed in granite? :)
 pars.bdensity = 3.0; % 3x the density of sandsilt? Should be very reflective
 
 % Sinusoidal cave characteristics
-cave_bend_ranges = [600, 850, 1150]-1;
+cave_bend_ranges = [349];
 cave_height = 102;
 
 % Specify the simulation type, as the 'arrivals' simulation:
 pars.simtype = 'arr';
 
 % File name and the simulation title
-output_file = 'data/angled_cave2_grid_data.csv';
+output_file = 'data/angled_cave_1bend_grid_data.csv';
 pars.filename = 'simfiles/grid_lut_sim'; % temporary directory for large BELLHOP ENV files
 
 % Use Gaussian beams for more realistic channel calculations
@@ -61,7 +61,7 @@ pars.use_bathymetry = true;
 save([extractBefore(output_file, '.'), '_bty_ati.mat'], 'topbound_x', 'topbound_y', 'bty_x','bty_y')
 
 % Specify the source depths to be simulated
-source_depth_vect = [50];
+source_depth_vect = [10, 50, 90];
 num_source_depths = numel(source_depth_vect);
 
 % Specify a grid of receiver depths and ranges to be simulated

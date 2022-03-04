@@ -45,18 +45,18 @@ pars.sourcedepths = 50;
 
 % 200m depth, 600m range, flat SSP, hard granite bottom
 pars.maxdepth = 300;
-pars.maxrange = 1e3;
+pars.maxrange = 700;
 pars.depths = 0:pars.maxdepth;
 pars.soundspeeds = 1500.0 .* ones(1, numel(pars.depths));
 pars.bsp = 4000; % 4000 m/s speed in granite? :)
 pars.bdensity = 3.0; % 3x the density of sandsilt? Should be very reflective
 
 % Sinusoidal cave characteristics
-cave_bend_ranges = [200, 450, 700];
+cave_bend_ranges = [350];
 cave_height = 100;
 
 % Specify receiver depth and range (not used by 'loss' simulation)
-pars.rxdepths = 25;
+pars.rxdepths = 250;
 pars.rxranges = pars.maxrange;
 
 % Set random number generator seed for reproducible altimetry/bathymetry
@@ -105,11 +105,13 @@ if strcmp(pars.simtype, 'ray') || strcmp(pars.simtype, 'eray')
     
 % If this was a 'loss' simulation, use the 'plotshd' function
 elseif strcmp(pars.simtype, 'loss')
-    f = figure;
+    f = figure; hold on;
     plotshd([pars.filename '.shd']); % this needs to have '.shd' file extension
     c = colorbar('EastOutside');
     c.Label.String = 'Transmission loss, dB';
     c.Label.FontSize = 12;
+    plot(0, pars.sourcedepths, 'go', 'linewidth', 2);
+    plot(pars.maxrange, pars.rxdepths, 'bs', 'linewidth', 2);
     grid on; box on;
 % If this was an 'arr' simulation, process the 'arr' file and plot the impulse response
 elseif strcmp(pars.simtype, 'arr')

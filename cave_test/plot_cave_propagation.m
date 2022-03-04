@@ -24,11 +24,12 @@
 %% Calculate Rx power and signal-to-noise ratio (SNR) at every location on a grid
 
 % Specify the CSV file with BELLHOP grid data to be plotted
-file_name = 'data/angled_cave2_grid_data.csv';
+file_name = 'data/angled_cave_1bend_grid_data.csv';
 
 % Choose the centre frequency and bandwidth in Hz
-centre_freq = 72e3;
+centre_freq = 24e3;
 bandwidth = 1e3;
+signal_vs_reverb_time = 20e-3; % 10 ms widnow for useful signal decoding (the rest is considered reverb)
 
 % Specify the location of the source
 source_depth = 50;
@@ -37,12 +38,7 @@ source_depth = 50;
 source_txp = 170; % 170 dB re 1 uPa @ 1m
 
 % Specify whether the multipath adds up coherently or incoherently (phase ignored)
-coherent_multipath = true;
-
-% Calculate noise power given the centre frequency and the bandwidth, using the ambient noise model (UWA_NOISE script plots it)
-ship_act = 0.7; % 0.5 shipping activity factor
-wind_speed = 1; % 10 m/s wind
-noise_power = calc_ambient_noise(centre_freq, bandwidth, ship_act, wind_speed);
+coherent_multipath = false;
 
 % Read the CSV file with all data and discard all rows not corresponding to the source depth
 csv_contents = csvread(file_name, 1, 0);
@@ -68,6 +64,7 @@ freq_points_kHz = freq_points .* 1e-3;
 
 % For every grid location, calculate Rx signal power
 rxp_grid = NaN(numel(rx_ranges), numel(rx_depths));
+reverb_grid = NaN(numel(rx_ranges), numel(rx_depths));
 for n = 1:numel(rx_ranges)
     for k = 1:numel(rx_depths)
         
@@ -88,64 +85,46 @@ for n = 1:numel(rx_ranges)
         imp_resp{1, k, n}.num_echoes = numel(imp_resp{1, k, n}.delay);
         
         % Calculate the channel gain and delay from the impulse response
-        [ch_gain, ~] = process_imp_resp(imp_resp{1, k, n}, centre_freq, bandwidth, sound_speed, coherent_multipath);
+        [ch_gain, ~, ~, reverb_ch_gain] = process_imp_resp(imp_resp{1, k, n}, centre_freq, bandwidth, sound_speed,...
+                                        coherent_multipath, signal_vs_reverb_time);
 
         % Calculate receiver signal power by integrating across the given bandwidth
         rxp_grid(n, k) = source_txp + ch_gain;
- 
+        reverb_grid(n, k) = source_txp + reverb_ch_gain;
     end
 end
 
-% Calculate SNR in dB
-snr_grid = rxp_grid - noise_power;
+% Calculate signal to reverb in dB
+srr_grid = rxp_grid - reverb_grid;
 
 % Load altimetry and bathymetry
 load([extractBefore(file_name, '.'), '_bty_ati.mat']);
 
 %% Plot the SNR and Rx power heatmaps
 
-% % Plot the SNR heatmap
-% min_snr = -10;
-% max_snr = 40;
-% 
-% f = figure; hold on;
-% f.Renderer='Painters';
-% h = contourf(rx_ranges, -rx_depths, snr_grid.', min_snr:5:max_snr, 'linestyle', 'none');
-% colormap(parula(numel(min_snr:5:max_snr)-1));
-% c = colorbar;
-% yticks(-max(rx_depths):100:0)
-% yticklabels(max(rx_depths):-100:0);
-% caxis([min_snr max_snr]);
-% % plot(0, -source_depth, 'go', 'linewidth', 2);
-% axis([-Inf pars.maxrange -Inf Inf]);
-% xlabel('Range, m'); ylabel('Depth, m');
-% c.Label.String = 'SNR, dB';
-% c.Label.FontSize = 11;
-% box on; grid on;
-% % Plot source location and top and bottom of cave
-% brown_color = [100 70 36]./256;
-% fill([topbound_x.*1e3, pars.maxrange], [-topbound_y, 0], 0, 'FaceColor', brown_color);
+% Plot the SRR heatmap
+min_srr = -12;
+max_srr = 4;
+
+f = figure; hold on;
+f.Renderer='Painters';
+h = contourf(rx_ranges, -rx_depths, srr_grid.', min_srr:1:max_srr, 'linestyle', 'none');
+colormap(parula(numel(min_srr:2:max_srr)-1));
+c = colorbar;
+yticks(-max(rx_depths):100:0)
+yticklabels(max(rx_depths):-100:0);
+caxis([min_srr max_srr]);
 % plot(0, -source_depth, 'go', 'linewidth', 2);
-% area(bty_x.*1e3, -bty_y, -pars.maxdepth, 'FaceColor', brown_color);
-%     
-% % Plot the Rx power heatmap
-% min_rxp = 60;
-% max_rxp = 120;
-% 
-% f = figure; hold on;
-% f.Renderer='Painters';
-% h = contourf(rx_ranges, -rx_depths, rxp_grid.', min_rxp:1:max_rxp, 'linestyle', 'none');
-% colormap(parula(numel(min_rxp:5:max_rxp)-1));
-% c = colorbar;
-% yticks(-max(rx_depths):100:0)
-% yticklabels(max(rx_depths):-100:0);
-% caxis([min_rxp max_rxp]);
-% % plot(0, -source_depth, 'go', 'linewidth', 2);
-% axis([-Inf Inf -Inf Inf]);
-% xlabel('Range, m'); ylabel('Depth, m');
-% c.Label.String = 'Rx Power, dB re 1{\mu}Pa @ 1m';
-% c.Label.FontSize = 11;
-% box on; grid on;
+axis([-Inf max(rx_ranges) -Inf Inf]);
+xlabel('Range, m'); ylabel('Depth, m');
+c.Label.String = 'Signal-to-Reverb Ratio, dB';
+c.Label.FontSize = 11;
+box on; grid on;
+% Plot source location and top and bottom of cave
+brown_color = [100 70 36]./256;
+fill([topbound_x, max(rx_ranges)], [-topbound_y, 0], 0, 'FaceColor', brown_color);
+area(bty_x, -bty_y, -max(rx_depths), 'FaceColor', brown_color);
+plot(0, -source_depth, 'go', 'linewidth', 2);
 
 % Plot the channel gain heatmap
 min_gain = -110;

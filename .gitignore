@@ -5,3 +5,4 @@
 *.ray
 *.asv
 *.env
+cave_test/data/*
