@@ -28,7 +28,7 @@ file_name = 'data/sin_cave_grid_data.csv';
 
 % Choose the centre frequency and bandwidth in Hz
 centre_freq = 24e3;
-bandwidth = 8e3;
+bandwidth = 1e3;
 
 % Specify the location of the source
 source_depth = 25;
@@ -99,6 +99,9 @@ end
 % Calculate SNR in dB
 snr_grid = rxp_grid - noise_power;
 
+% Load altimetry and bathymetry
+save([extractBefore(file_name, '.'), '_bty_ati.mat']);
+
 %% Plot the SNR and Rx power heatmaps
 
 % % Plot the SNR heatmap
@@ -156,13 +159,13 @@ c = colorbar;
 yticks(-max(rx_depths):100:0)
 yticklabels(max(rx_depths):-100:0);
 caxis([min_gain max_gain]);
-axis([-Inf pars.maxrange -Inf Inf]);
+axis([-Inf max(rx_ranges) -Inf Inf]);
 xlabel('Range, m'); ylabel('Depth, m');
 c.Label.String = 'Channel gain, dB';
 c.Label.FontSize = 11;
 box on; grid on;
 % Plot source location and top and bottom of cave
 brown_color = [100 70 36]./256;
-fill([topbound_x.*1e3, pars.maxrange], [-topbound_y, 0], 0, 'FaceColor', brown_color);
+fill([topbound_x, max(rx_ranges)], [-topbound_y, 0], 0, 'FaceColor', brown_color);
 plot(0, -source_depth, 'go', 'linewidth', 2);
-area(bty_x.*1e3, -bty_y, -pars.maxdepth, 'FaceColor', brown_color);
+area(bty_x, -bty_y, -max(rx_depths), 'FaceColor', brown_color);
