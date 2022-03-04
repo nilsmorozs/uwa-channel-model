@@ -27,7 +27,7 @@ function [x_vect, y_vect] = create_sin_bty_file(pars, phase_shift)
 % This work was supported by the UK Engineering and Physical Sciences Research Council (EPSRC) 
 % through the USMART Project under Grant EP/P017975/1.
     
-% Create an output ATI file
+% Create an output BTY file
 filename = [pars.filename '.bty'];
 
 % Calculate sinusoidal bottom coordinates with specified period (-pi/2 shift to start at maximum depth at range 0)

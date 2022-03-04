@@ -24,14 +24,14 @@
 %% Calculate Rx power and signal-to-noise ratio (SNR) at every location on a grid
 
 % Specify the CSV file with BELLHOP grid data to be plotted
-file_name = 'data/sin_cave_grid_data.csv';
+file_name = 'data/angled_cave2_grid_data.csv';
 
 % Choose the centre frequency and bandwidth in Hz
-centre_freq = 24e3;
+centre_freq = 72e3;
 bandwidth = 1e3;
 
 % Specify the location of the source
-source_depth = 25;
+source_depth = 50;
 
 % Set source level;
 source_txp = 170; % 170 dB re 1 uPa @ 1m
@@ -40,8 +40,8 @@ source_txp = 170; % 170 dB re 1 uPa @ 1m
 coherent_multipath = true;
 
 % Calculate noise power given the centre frequency and the bandwidth, using the ambient noise model (UWA_NOISE script plots it)
-ship_act = 0.5; % 0.5 shipping activity factor
-wind_speed = 10; % 10 m/s wind
+ship_act = 0.7; % 0.5 shipping activity factor
+wind_speed = 1; % 10 m/s wind
 noise_power = calc_ambient_noise(centre_freq, bandwidth, ship_act, wind_speed);
 
 % Read the CSV file with all data and discard all rows not corresponding to the source depth
@@ -100,7 +100,7 @@ end
 snr_grid = rxp_grid - noise_power;
 
 % Load altimetry and bathymetry
-save([extractBefore(file_name, '.'), '_bty_ati.mat']);
+load([extractBefore(file_name, '.'), '_bty_ati.mat']);
 
 %% Plot the SNR and Rx power heatmaps
 
@@ -167,5 +167,5 @@ box on; grid on;
 % Plot source location and top and bottom of cave
 brown_color = [100 70 36]./256;
 fill([topbound_x, max(rx_ranges)], [-topbound_y, 0], 0, 'FaceColor', brown_color);
-plot(0, -source_depth, 'go', 'linewidth', 2);
 area(bty_x, -bty_y, -max(rx_depths), 'FaceColor', brown_color);
+plot(0, -source_depth, 'go', 'linewidth', 2);
