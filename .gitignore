@@ -1,2 +1,6 @@
-channel_model/simfiles/*
-cave_test/simfiles/*
+*.arr
+*.bty
+*.ati
+*.shd
+*.ray
+*.asv
