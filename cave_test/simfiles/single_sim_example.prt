@@ -332,26 +332,20 @@
 
  __________________________________________________________________________
 
- Number of Receiver depths, Rz =          201
+ Number of Receiver depths, Rz =            1
  Receiver depths, Rz (m)
-   0.00000       1.50000       3.00000       4.50000       6.00000    
-   7.50000       9.00000       10.5000       12.0000       13.5000    
-          ... 
-   300.000    
+   250.000    
 
 
  __________________________________________________________________________
 
- Number of Receiver ranges, Rr =         1001
+ Number of Receiver ranges, Rr =            1
  Receiver ranges, Rr (km)
-   0.00000      0.700000E-03  0.140000E-02  0.210000E-02  0.280000E-02
-  0.350000E-02  0.420000E-02  0.490000E-02  0.560000E-02  0.630000E-02
-          ... 
   0.700000    
 
 
- Incoherent TL calculation
- Geometric gaussian beams in Cartesian coordinates
+ Arrivals calculation, ASCII  file output
+ Geometric hat beams in Cartesian coordinates
  Point source (cylindrical coordinates)
  Rectilinear receiver grid: Receivers at ( Rr( ir ), Rz( ir ) ) )
  __________________________________________________________________________
@@ -398,9 +392,11 @@
 
  Step length,       deltas =   30.00     m (automatically selected)
 
+ ( Maximum # of arrivals =     20000000 )
+
 Tracing beam       1    -90.00
 
- Geometric Gaussian beams                
+ Geometric hat beams                     
  halfwidth  =    63.325739776460829     
  epsilonOpt =                (0.0000000000000000,302358135.31124324)
  EpsMult    =    1.0000000000000000     
@@ -456,4 +452,4 @@ Tracing beam    9601     82.80
 Tracing beam    9801     86.40
 Tracing beam   10001     90.00
 
- CPU Time =        14.0    s
+ CPU Time =        5.03    s

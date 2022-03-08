@@ -35,7 +35,7 @@ pars.title = 'Cave test'; % (this will appear on the plots)
 %  'eray' - Eigenray tracing 
 %  'loss' - 2D propagation loss calculation
 %  'arr' - arrivals simulation (outputs attenuation/delay/phase of received echoes)
-pars.simtype = 'loss';
+pars.simtype = 'arr';
 
 % Carrier frequency [Hz]
 pars.freq = 24e3;
@@ -71,8 +71,8 @@ pars.use_bathymetry = true;
 if strcmp(pars.simtype, 'ray')
     % Small number of rays for a simple ray trace
     pars.numrays = 21;
-    pars.minangle = -15;
-    pars.maxangle = 15;
+    pars.minangle = -30;
+    pars.maxangle = 30;
 else
     % For the transmission loss, eigenray and arrivals simulations, override the angle range by a full [-90, 90] range
     pars.minangle = -90;
@@ -97,7 +97,7 @@ bellhop(pars.filename);
 
 % If this was a 'ray' or 'eray' simulation, use the 'plotray' function
 if strcmp(pars.simtype, 'ray') || strcmp(pars.simtype, 'eray')
-    f = figure;
+    f = figure; hold on;
     f.Renderer = "Painters";
     plotray(pars.filename);
     grid on; box on;
@@ -110,8 +110,8 @@ elseif strcmp(pars.simtype, 'loss')
     c = colorbar('EastOutside');
     c.Label.String = 'Transmission loss, dB';
     c.Label.FontSize = 12;
-    plot(0, pars.sourcedepths, 'go', 'linewidth', 2);
-    plot(pars.maxrange, pars.rxdepths, 'bs', 'linewidth', 2);
+%     plot(0, pars.sourcedepths, 'go', 'linewidth', 2);
+%     plot(pars.maxrange, pars.rxdepths, 'bs', 'linewidth', 2);
     grid on; box on;
 % If this was an 'arr' simulation, process the 'arr' file and plot the impulse response
 elseif strcmp(pars.simtype, 'arr')
@@ -120,33 +120,33 @@ elseif strcmp(pars.simtype, 'arr')
     imp_resp = process_arr_file(pars.filename);
     % Normalise the echo amplitudes
     imp_resp{1}.ampl = imp_resp{1}.ampl ./ max(imp_resp{1}.ampl);
-    % Calculate compressed versions of the impulse response (Only include echoes that make up 95%/99% of total energy)
-    comp_imp_resp_95 = compress_imp_resp(imp_resp{1}, 0.95);
-    comp_imp_resp_99 = compress_imp_resp(imp_resp{1}, 0.99);
-    
-    % Plot the full impulse response and the compressed versions
-    figure;
-
-    % Plot delay and apmlitude of all echoes recorded by BELLHOP
-    subplot(3, 1, 1);
-    stem(imp_resp{1}.delay, imp_resp{1}.ampl, 'r-');
-    axis([0.99*min(imp_resp{1}.delay) 1.01*max(imp_resp{1}.delay) 0 Inf])
-    xlabel('Delay, sec'); ylabel('Amplitude');
-    title('Full BELLHOP impulse response');
-
-    % Include only the echoes that constitute 99% of the total received energy
-    subplot(3, 1, 2);
-    stem(comp_imp_resp_99.delay, comp_imp_resp_99.ampl, 'b-', 'linewidth', 1);
-    axis([0.99*min(imp_resp{1}.delay) 1.01*max(imp_resp{1}.delay) 0 Inf])
-    xlabel('Delay, sec'); ylabel('Amplitude');
-    title('Compressed impulse response (99% energy)');
-
-    % Include only the echoes that constitute 95% of the total received energy
-    subplot(3, 1, 3);
-    stem(comp_imp_resp_95.delay, comp_imp_resp_95.ampl, 'b-', 'linewidth', 1);
-    axis([0.99*min(imp_resp{1}.delay) 1.01*max(imp_resp{1}.delay) 0 Inf])
-    xlabel('Delay, sec'); ylabel('Amplitude');
-    title('Compressed impulse response (95% energy)');
+%     % Calculate compressed versions of the impulse response (Only include echoes that make up 95%/99% of total energy)
+%     comp_imp_resp_95 = compress_imp_resp(imp_resp{1}, 0.95);
+%     comp_imp_resp_99 = compress_imp_resp(imp_resp{1}, 0.99);
+%     
+%     % Plot the full impulse response and the compressed versions
+%     figure;
+% 
+%     % Plot delay and apmlitude of all echoes recorded by BELLHOP
+%     subplot(3, 1, 1);
+%     stem(imp_resp{1}.delay, imp_resp{1}.ampl, 'r-');
+%     axis([0.99*min(imp_resp{1}.delay) 1.01*max(imp_resp{1}.delay) 0 Inf])
+%     xlabel('Delay, sec'); ylabel('Amplitude');
+%     title('Full BELLHOP impulse response');
+% 
+%     % Include only the echoes that constitute 99% of the total received energy
+%     subplot(3, 1, 2);
+%     stem(comp_imp_resp_99.delay, comp_imp_resp_99.ampl, 'b-', 'linewidth', 1);
+%     axis([0.99*min(imp_resp{1}.delay) 1.01*max(imp_resp{1}.delay) 0 Inf])
+%     xlabel('Delay, sec'); ylabel('Amplitude');
+%     title('Compressed impulse response (99% energy)');
+% 
+%     % Include only the echoes that constitute 95% of the total received energy
+%     subplot(3, 1, 3);
+%     stem(comp_imp_resp_95.delay, comp_imp_resp_95.ampl, 'b-', 'linewidth', 1);
+%     axis([0.99*min(imp_resp{1}.delay) 1.01*max(imp_resp{1}.delay) 0 Inf])
+%     xlabel('Delay, sec'); ylabel('Amplitude');
+%     title('Compressed impulse response (95% energy)');
 
     % Plot the full impulse response again and highlight the refracted and reflected paths (plots from the article)
     figure; hold on;

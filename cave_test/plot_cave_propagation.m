@@ -29,10 +29,10 @@ file_name = 'data/angled_cave_1bend_grid_data.csv';
 % Choose the centre frequency and bandwidth in Hz
 centre_freq = 24e3;
 bandwidth = 1e3;
-signal_vs_reverb_time = 20e-3; % 10 ms widnow for useful signal decoding (the rest is considered reverb)
+signal_vs_reverb_time = 10e-3; % widnow for useful signal decoding (the rest is considered reverb)
 
 % Specify the location of the source
-source_depth = 50;
+source_depth = 10;
 
 % Set source level;
 source_txp = 170; % 170 dB re 1 uPa @ 1m
