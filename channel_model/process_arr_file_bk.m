@@ -1,4 +1,4 @@
-function [impulse_resp] = process_arr_file(filename, regular_grid)
+function [impulse_resp] = process_arr_file_bk(filename, regular_grid)
 %PROCESS_ARR_FILE function processes the 'arr' file and returns 
 % the impulse response (amplitude, delay and phase shift vectors) between every source and receiver
 %
